@@ -324,7 +324,8 @@ function receivedMessage(event) {
 
 
 function sendMeow(event) {
-  sendTextMessage(event.sender.id, 'Moew ^w^ : ' + JSON.stringify(event))
+  var sender_profile = callGetSenderProfile(event.sender)
+  sendTextMessage(event.sender.id, 'Moew ^w^ : ' + JSON.stringify(sender_profile))
 }
 
 /*
@@ -834,6 +835,34 @@ function callSendAPI(messageData) {
       }
     } else {
       console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
+    }
+  });  
+}
+
+
+function callGetSenderProfile(sender) {
+  request({
+    uri: 'https://graph.facebook.com/v2.6/#' + sender.id,
+    qs: { 
+      access_token: PAGE_ACCESS_TOKEN,
+      fields: "fist_name,last_name,gender,profile_pic"
+     },
+    method: 'POST',
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var recipientId = body.recipient_id;
+      var messageId = body.message_id;
+
+      if (messageId) {
+        console.log("Successs", 
+          messageId, recipientId);
+      } else {
+      console.log("Successs", 
+        recipientId);
+      }
+      return body
+    } else {
+      console.error("Failed calling GET", response.statusCode, response.statusMessage, body.error);
     }
   });  
 }
