@@ -845,7 +845,7 @@ function callGetSenderProfile(sender) {
     uri: 'https://graph.facebook.com/v2.6/#' + sender.id,
     qs: { 
       access_token: PAGE_ACCESS_TOKEN,
-      fields: "fist_name,last_name,gender,profile_pic"
+      fields: "fist_name,last_name"
      },
     method: 'GET',
   }, function (error, response, body) {
@@ -862,7 +862,7 @@ function callGetSenderProfile(sender) {
       }
       return body
     } else {
-      console.error("Failed calling GET", response.statusCode, response.statusMessage, body.error);
+      console.error("Failed calling GET", response.statusCode, response.statusMessage, body.error, request.uri);
     }
   });  
 }
