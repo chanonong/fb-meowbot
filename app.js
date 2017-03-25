@@ -862,7 +862,7 @@ function callGetSenderProfile(sender) {
       }
       return body
     } else {
-      console.error("Failed calling GET", response.statusCode, response.statusMessage, body.error, request.uri);
+      console.error("Failed calling GET", response.statusCode, response.statusMessage, body.error, sender.id);
     }
   });  
 }
