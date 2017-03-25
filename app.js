@@ -325,8 +325,8 @@ function receivedMessage(event) {
 
 function sendMeow(event) {
   var sender_profile = callGetSenderProfile(event.sender, function(body) {
-    console.log(JSON.stringify(body['first_name']))
-    sendTextMessage(event.sender.id, 'Moew ^w^ ' + body.first_name)
+    console.log()
+    sendTextMessage(event.sender.id, 'Moew ^w^ ' + Object.keys(body))
   })
   
 }
