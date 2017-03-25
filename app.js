@@ -847,7 +847,7 @@ function callGetSenderProfile(sender) {
       access_token: PAGE_ACCESS_TOKEN,
       fields: "fist_name,last_name,gender,profile_pic"
      },
-    method: 'POST',
+    method: 'GET',
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var recipientId = body.recipient_id;
