@@ -439,11 +439,8 @@ function sendImageMessage(recipientId) {
 function sendGifMessage(recipientId) {
   fs.readdir('./public/assets/gifs', function(err, items) {
     console.log(items);
-    for (var i=0; i<items.length; i++) {
-        console.log(items[i]);
-    }
-  })
-  var messageData = {
+    var index = Math.ceil(Math.random() * items.length) - 1
+    var messageData = {
     recipient: {
       id: recipientId
     },
@@ -451,13 +448,14 @@ function sendGifMessage(recipientId) {
       attachment: {
         type: "image",
         payload: {
-          url: SERVER_URL + "/assets/instagram_logo.gif"
+          url: SERVER_URL + "/assets/gifs/" + items[index] 
         }
       }
     }
   };
 
   callSendAPI(messageData);
+  })
 }
 
 /*
