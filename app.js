@@ -842,7 +842,7 @@ function callSendAPI(messageData) {
 
 function callGetSenderProfile(sender) {
   request({
-    uri: 'https://graph.facebook.com/v2.6/#' + sender.id,
+    uri: 'https://graph.facebook.com/v2.6/' + sender.id,
     qs: { 
       access_token: PAGE_ACCESS_TOKEN,
       fields: "fist_name,last_name"
