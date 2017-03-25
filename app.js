@@ -17,6 +17,7 @@ const
   express = require('express'),
   https = require('https'),  
   request = require('request');
+  fs = require('fs')
 
 var app = express();
 app.set('port', process.env.PORT || 5000);
@@ -310,11 +311,6 @@ function receivedMessage(event) {
       case 'account linking':
         sendAccountLinking(senderID);
         break;
-      case 'meow':
-      case '^w^':
-      case 'เมี้ยว':
-        sendMeow(event)
-        break;
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -323,13 +319,7 @@ function receivedMessage(event) {
   }
 }
 
-function sendMeow(event) {
-  var sender_profile = callGetSenderProfile(event.sender, function(body) {
-    console.log()
-    sendTextMessage(event.sender.id, 'Moew ^w^ ' + Object.keys(body))
-  })
-  
-}
+
 
 /*
  * Delivery Confirmation Event
@@ -446,6 +436,12 @@ function sendImageMessage(recipientId) {
  *
  */
 function sendGifMessage(recipientId) {
+  fs.readdir('./public/assets/gifs', function(err, items) {
+    console.log(items);
+    for (var i=0; i<items.length; i++) {
+        console.log(items[i]);
+    }
+  })
   var messageData = {
     recipient: {
       id: recipientId
@@ -840,25 +836,6 @@ function callSendAPI(messageData) {
       console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
     }
   });  
-}
-
-
-function callGetSenderProfile(sender, callback) {
-  request({
-    uri: 'https://graph.facebook.com/v2.6/' + sender.id,
-    qs: { 
-      access_token: PAGE_ACCESS_TOKEN,
-      fields: "first_name,last_name"
-     },
-    method: 'GET',
-  }, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      console.log("Successs", JSON.stringify(body));
-      callback(body)
-    } else {
-      console.error("Failed calling GET", response.statusCode, response.statusMessage, body.error, sender.id);
-    }
-  });
 }
 
 // Start server
