@@ -15,9 +15,10 @@ const
   config = require('config'),
   crypto = require('crypto'),
   express = require('express'),
-  https = require('https'),  
+  https = require('https'),
+  fs = require('fs'),
   request = require('request');
-  fs = require('fs')
+  
 
 var app = express();
 app.set('port', process.env.PORT || 5000);
