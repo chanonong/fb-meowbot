@@ -322,10 +322,17 @@ function receivedMessage(event) {
   }
 }
 
+class SenderProfile {
+    constructor(id, first_name, last_name) {
+      this.id = id
+      this.first_name = first_name
+      this.last_name = last_name
+    }
+}
 
 function sendMeow(event) {
   var sender_profile = callGetSenderProfile(event.sender)
-  sendTextMessage(event.sender.id, 'Moew ^w^ : ' + JSON.stringify(sender_profile))
+  sendTextMessage(event.sender.id, 'Moew ^w^ : {0} {1}'.format(sender_profile.first_name, sender_profile.last_name))
 }
 
 /*
@@ -850,17 +857,8 @@ function callGetSenderProfile(sender) {
     method: 'GET',
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      var recipientId = body.recipient_id;
-      var messageId = body.message_id;
-
-      if (messageId) {
-        console.log("Successs", 
-          messageId, recipientId);
-      } else {
-      console.log("Successs", 
-        recipientId);
-      }
-      return body
+      console.log("Successs", JSON.stringify(body));
+      return new SenderProfile(sender.id, body.first_name, body.last_name)
     } else {
       console.error("Failed calling GET", response.statusCode, response.statusMessage, body.error, sender.id);
     }
@@ -875,4 +873,5 @@ app.listen(app.get('port'), function() {
 });
 
 module.exports = app;
+
 
