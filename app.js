@@ -312,6 +312,7 @@ function receivedMessage(event) {
         break;
       case 'meow':
       case '^w^':
+      case 'เมี้ยว':
         sendMeow(event)
         break;
       default:
@@ -320,14 +321,6 @@ function receivedMessage(event) {
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
-}
-
-class SenderProfile {
-    constructor(id, first_name, last_name) {
-      this.id = id
-      this.first_name = first_name
-      this.last_name = last_name
-    }
 }
 
 function sendMeow(event) {
@@ -858,7 +851,7 @@ function callGetSenderProfile(sender) {
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log("Successs", JSON.stringify(body));
-      return new SenderProfile(sender.id, body.first_name, body.last_name)
+      return body
     } else {
       console.error("Failed calling GET", response.statusCode, response.statusMessage, body.error, sender.id);
     }
