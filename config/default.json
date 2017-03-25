@@ -1,6 +1,6 @@
 {
-    "appSecret": "",
-    "pageAccessToken": "",
-    "validationToken": "",
-    "serverURL": ""
+    "appSecret": "aa55c2b23318d624a89425539688d64d",
+    "pageAccessToken": "EAAbFCTesam8BAJfNuuMqOIT5UEZAIkcKzz4mvvoSCJFYgobPIMjbEZCZBMJ7qioO1egNAEOoKUwBVj5YTW6TLDfqayf4eqd1AgsU1qWvNwVgD91QzU6v9xyPsjnqin3tH71LaDjcugeZBZCZBCXTOfoPJdBoCU5sJkf4TXWUvhnwZDZD",
+    "validationToken": "TOKEN_TO_BE_VALIDATE",
+    "serverURL": "https://fb-meowbot.herokuapp.com/"
 }
