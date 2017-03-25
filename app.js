@@ -312,8 +312,8 @@ function receivedMessage(event) {
         break;
       case 'meow':
       case '^w^':
-        sendMeow(event.sender)
-
+        sendMeow(event)
+        break;
       default:
         sendTextMessage(senderID, messageText);
     }
@@ -323,8 +323,8 @@ function receivedMessage(event) {
 }
 
 
-function sendMeow(sender) {
-  sendTextMessage(sender.id, 'Moew ^w^ : ' + sender.name)
+function sendMeow(event) {
+  sendTextMessage(event.sender.id, 'Moew ^w^ : ' + JSON.stringify(event))
 }
 
 /*
