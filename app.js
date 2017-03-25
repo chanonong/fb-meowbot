@@ -324,9 +324,11 @@ function receivedMessage(event) {
 }
 
 function sendMeow(event) {
-  var sender_profile = callGetSenderProfile(event.sender)
-  console.log(JSON.stringify(sender_profile))
-  sendTextMessage(event.sender.id, 'Moew ^w^')
+  var sender_profile = callGetSenderProfile(event.sender, function(body) {
+    console.log(JSON.stringify(body))
+    sendTextMessage(event.sender.id, 'Moew ^w^ ' + body.first_name)
+  })
+  
 }
 
 /*
@@ -841,7 +843,7 @@ function callSendAPI(messageData) {
 }
 
 
-function callGetSenderProfile(sender) {
+function callGetSenderProfile(sender, callback) {
   request({
     uri: 'https://graph.facebook.com/v2.6/' + sender.id,
     qs: { 
@@ -852,11 +854,11 @@ function callGetSenderProfile(sender) {
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       console.log("Successs", JSON.stringify(body));
-      return body
+      callback(body)
     } else {
       console.error("Failed calling GET", response.statusCode, response.statusMessage, body.error, sender.id);
     }
-  });  
+  });
 }
 
 // Start server
