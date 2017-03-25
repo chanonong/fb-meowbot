@@ -310,6 +310,9 @@ function receivedMessage(event) {
       case 'account linking':
         sendAccountLinking(senderID);
         break;
+      case 'meow':
+      case '^w^':
+        sendMeow(event.sender)
 
       default:
         sendTextMessage(senderID, messageText);
@@ -319,6 +322,10 @@ function receivedMessage(event) {
   }
 }
 
+
+function sendMeow(sender) {
+  sendTextMessage(sender.id, 'Moew ^w^ : ' + sender.name)
+}
 
 /*
  * Delivery Confirmation Event
@@ -528,7 +535,7 @@ function sendTextMessage(recipientId, messageText) {
       id: recipientId
     },
     message: {
-      text: 'Meow' + messageText,
+      text: messageText,
       metadata: "DEVELOPER_DEFINED_METADATA"
     }
   };
